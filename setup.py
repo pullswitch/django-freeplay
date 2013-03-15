@@ -7,7 +7,7 @@ setup(
     author = "Dave Lowe",
     author_email = "dave@hellopullswitch.com",
     description = "Easily curate bits of content on your site that don't warrant pages or custom models",
-    long_description = open("README.md").read(),
+    long_description = open("README.rst").read(),
     license = "MIT",
     url = "http://github.com/pullswitch/django-tidbits",
     packages = find_packages(),
