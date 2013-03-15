@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify %}
+{% load url from future %}
+{% load admin_urls %}
+{% load bootstrap_tags %}
+
+{% block extrahead %}{{ block.super }}
+
+{% url 'admin:jsi18n' as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}chosen/chosen.css">
+{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}change-form{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> <span class="divider">/</span></li>
+<li><a href="{% url 'tidbits_dashboard' %}">Content Bits</a> <span class="divider">/</span></li>
+{% comment %}<li>{% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} <span class="divider">/</span></li>{% endcomment %}
+<li>{% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
+</ul>
+{% endblock %}
+{% endif %}
+
+{% block content %}<div id="content-main" class="span10">
+{% block object-tools %}
+
+{% endblock %}
+<form enctype="multipart/form-data" action="{{ form_url }}" method="post" id="add_form" class="form form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
+<div>
+{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+{% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+{% if form.errors %}
+    <p class="errornote">
+    {% blocktrans count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    {{ form.non_field_errors }}
+{% endif %}
+    {{ form|as_bootstrap }}
+    <div class="form-actions">
+      <a href="#back" class="btn">Go back</a>
+      <button type="submit" class="btn btn-primary">{% if add %}Save{% else %}Save changes{% endif %}</button>
+    </div>
+
+</div>
+</form></div>
+{% endblock %}
+
+{% block js %}
+  <script src="{{ STATIC_URL }}chosen/chosen.jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}admin/js/jquery.slugify.js"></script>
+  <script>
+  $(function() {
+    $("select").addClass("chzn-select");
+    $(".chzn-select").chosen();
+    $("#id_slug").slugify("#id_label");
+  });
+</script>
+
+{% endblock %}

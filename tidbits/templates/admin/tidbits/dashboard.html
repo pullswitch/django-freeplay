@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+
+{% block breadcrumbs %}
+        <li>
+            <a href="/admin/">Dashboard</a> <span class="divider">/</span>
+        </li>
+        <li class="active">
+          Site Content
+        </li>        
+{% endblock %}
+
+{% block content %}
+            
+<div class="row" id="container">
+    {% for area in areas %}
+    <div class="span6">
+                
+        <div class="slate">
+                    
+            <div class="page-header">
+                <h2>{% if user.is_staff %}<a href="{% url "admin:tidbits_area_change" area.pk %}"><i class="icon-cog pull-right"></i></a> {% endif %} {{ area }}</h2>
+            </div>
+            {% if area.items.count < area.min_items %}
+            <p class="alert alert-warning">{{ area.min_items }} items needed — please add more</p>
+            {% endif %}
+            <table class="table">
+            <tbody>
+                {% for obj in area.items.all %}
+                <tr>
+                    <td><a href="{% url "tidbits_item_change" area.pk obj.pk %}">{{ obj.label }}</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td><em>None yet</a></em></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            {% if not area.max_items or area.items.count < area.max_items %}<a href="{% url "tidbits_item_add" area.pk %}"><i class="icon-plus-sign"></i> Add new item</a>{% endif %}
+        </div>
+                
+    </div>
+    {% endfor %}
+</div>
+            
+</div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}lib/isotope/jquery.isotope.min.js"></script>
+    <script>
+        $('#container').isotope({
+          itemSelector : '.span6',
+          layoutMode : 'masonry'
+        });
+    </script>
+{% endblock js %}
