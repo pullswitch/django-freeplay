@@ -77,7 +77,7 @@ Now we can write the following for the template Code:
 .. code-block:: html
 
     <span class="number">{{ order }}</span>
-    {{ question|titlecase }}
+    {{ question|title }}
     <div class="answer">{{ answer|safe }}</div>
 
 Note we need to use the ``safe`` filter for HTML content, and also that each 
@@ -103,6 +103,7 @@ Here's how you fetch and display tidbits in your templates:
     {% content_bits "question-answer" as qa_items %}
     {% for item in qa_items %}
     <li>{{ item.data|safe }}</li>
+    {% endfor %}
 
 ``get_bit`` : assignment tag, requires "area_slug" and "item_slug" as args
 
