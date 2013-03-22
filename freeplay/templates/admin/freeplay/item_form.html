@@ -23,7 +23,7 @@
 {% block breadcrumbs %}
 <ul class="breadcrumb">
 <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> <span class="divider">/</span></li>
-<li><a href="{% url 'tidbits_dashboard' %}">Content Bits</a> <span class="divider">/</span></li>
+<li><a href="{% url 'freeplay_dashboard' %}">{% trans 'Content Regions' %}</a> <span class="divider">/</span></li>
 {% comment %}<li>{% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} <span class="divider">/</span></li>{% endcomment %}
 <li>{% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
 </ul>
@@ -46,8 +46,8 @@
 {% endif %}
     {{ form|as_bootstrap }}
     <div class="form-actions">
-      <a href="#back" class="btn">Go back</a>
-      <button type="submit" class="btn btn-primary">{% if add %}Save{% else %}Save changes{% endif %}</button>
+      <a href="#back" class="btn">{% trans 'Go back' %}</a>
+      <button type="submit" class="btn btn-primary">{% if add %}{% trans 'Save' %}{% else %}{% trans 'Save changes' %}{% endif %}</button>
     </div>
 
 </div>

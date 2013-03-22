@@ -2,11 +2,11 @@ from django.contrib import admin
 
 from relatedwidget import RelatedWidgetWrapperBase
 
-from tidbits.models import Area, Bit, ContentBit
+from tidbits.models import Region, Bit, ContentBit
 from tidbits.models import Item, Template
 
 
-class AreaOptions(RelatedWidgetWrapperBase, admin.ModelAdmin):
+class RegionOptions(RelatedWidgetWrapperBase, admin.ModelAdmin):
 
     list_display = ("name", "slug", "min_items", "max_items")
 
@@ -29,11 +29,11 @@ class TemplateOptions(admin.ModelAdmin):
 
 class ItemOptions(RelatedWidgetWrapperBase, admin.ModelAdmin):
 
-    list_display = ("label", "area", "order")
-    list_filter = ("area", )
+    list_display = ("label", "region", "order")
+    list_filter = ("region", )
 
 
-admin.site.register(Area, AreaOptions)
+admin.site.register(Region, RegionOptions)
 admin.site.register(Template, TemplateOptions)
 admin.site.register(Bit, BitOptions)
 admin.site.register(Item, ItemOptions)

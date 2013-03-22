@@ -8,7 +8,7 @@ from imagekit.processors import ResizeToFill
 from model_utils import Choices
 
 
-class Area(models.Model):
+class Region(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     min_items = models.IntegerField(default=0)
@@ -22,7 +22,9 @@ class Area(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=100)
-    code = models.TextField(help_text="Be sure to use the 'safe' filter when the input might include HTML tags")
+    code = models.TextField(help_text=_(
+        "Be sure to use the 'safe' filter when the input might include HTML tags"
+    ))
 
     def __unicode__(self):
         return u"{0}".format(self.name)
@@ -127,7 +129,7 @@ class BitClass:
 
 
 class Item(models.Model):
-    area = models.ForeignKey(Area, related_name="items")
+    area = models.ForeignKey(Region, related_name="items")
     order = models.IntegerField(default=0)
     label = models.CharField(max_length=100)
     slug = models.SlugField()

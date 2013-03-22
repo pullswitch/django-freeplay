@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name = "django-tidbits",
+    name = "django-freeplay",
     version = "0.1.0",
     author = "Dave Lowe",
     author_email = "dave@hellopullswitch.com",
-    description = "Easily curate bits of content on your site that don't warrant pages or custom models",
+    description = "Easily make regions of content on your site editable without custom models",
     long_description = open("README.rst").read(),
     license = "MIT",
-    url = "http://github.com/pullswitch/django-tidbits",
+    url = "http://github.com/pullswitch/django-freeplay",
     packages = find_packages(),
     install_requires = [
         "django-model-utils==1.1.0",

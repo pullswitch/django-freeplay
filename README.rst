@@ -1,22 +1,23 @@
-django-tidbits
+django-freeplay
 ==============
 
-Tidbits is a Django app for managing (and allowing clients to manage) 
+Freeplay is a new approach for easily adding CMS functionality to
+your Django app. Define regions for managing (and allowing clients to manage) 
 bits of content on your site that don't need the full build-out of 
-custom apps. For example, that short company description in the site 
-footer or the photo and bio of the CEO.
+custom apps. For example, that list of links in the footer, or the photo 
+and bio of the CEO. With Freeplay, each region can contain one or many 
+items, so you quickly gain flexible model-like functionality.
 
-Tidbits aims to be as simple or powerful as you need, so it uses a 
-template approach for each area you setup and renders them with 
-Django's template processor.
+Each bit of content gets rendered onsave with Django's template 
+processor, so you have all the power of the Django's parser.
 
 
 Installation
 ============
 
-1. ``pip install django-tidbits``
-2. Add ``'tidbits'`` to your ``INSTALLED_APPS`` in your project's settings.py
-3. (Optional) Add ``(r"^admin/bits/", include("tidbits.urls_admin")),`` to 
+1. ``pip install django-freeplay``
+2. Add ``'freeplay'`` to your ``INSTALLED_APPS`` in your project's settings.py
+3. (Optional) Add ``(r"^admin/freeplay/", include("freeplay.urls_admin")),`` to 
    your main urls.py, before you include the admin urls
 4. Sync your db or use your migration tool of choice 
    (recommended: `nashvegas`_)
@@ -27,7 +28,7 @@ Installation
 Requirements
 ============
 
-Installing tidbits will also bring 
+Installing freeplay will also bring 
 `django-model-utils`_, `django-imagekit`_, 
 and `django-relatedadminwidget`_ with it.
 
@@ -45,7 +46,7 @@ templates with ones in your project to define your own paths or libs.
 Usage
 =====
 
-In the django admin, create a new tidbits **Template**. Start by defining the 
+In the django admin, create a new freeplay **Template**. Start by defining the 
 template **bits** and then write the template **code**. For example, let's say we want to 
 manage a few FAQs. We'd create one bit like so:
 
@@ -83,20 +84,20 @@ Now we can write the following for the template Code:
 Note we need to use the ``safe`` filter for HTML content, and also that each 
 item will include its "order" in context as well as "label".
 
-As soon as you have a template, create an **Area** and then you can start adding 
+As soon as you have a template, create a **Region** and then you can start adding 
 content, which is easily done using the included admin urls and templates.
 
 Templatetags
 ------------
 
-Here's how you fetch and display tidbits in your templates:
+Here's how you fetch and display freeplay content in your templates:
 
 .. code-block:: html
 
-    {% load tidbits_tags %}
+    {% load freeplay_tags %}
 
 
-``content_bits`` : assignment tag, accepts "area_slug" as argument
+``content_bits`` : assignment tag, accepts "region_slug" as argument
 
 .. code-block:: html
     
@@ -105,7 +106,7 @@ Here's how you fetch and display tidbits in your templates:
     <li>{{ item.data|safe }}</li>
     {% endfor %}
 
-``get_bit`` : assignment tag, requires "area_slug" and "item_slug" as args
+``get_bit`` : assignment tag, requires "region_slug" and "item_slug" as args
 
 .. code-block:: html
 
@@ -119,9 +120,9 @@ Here's how you fetch and display tidbits in your templates:
 Also
 ====
 
-Tidbit areas let you set "Min Items" and "Max Items", optionally. On the 
-tidbits admin dashboard, it will then alert you if an area needs more content 
-to meet the minimum requirement and won't show the "Add" link if an area has 
+Freeplay regions let you set "Min Items" and "Max Items", optionally. On the 
+freeplay admin dashboard, it will then alert you if a region needs more content 
+to meet the minimum requirement and won't show the "Add" link if the region has 
 met the maximum limit.
 
 Hope you find this useful!

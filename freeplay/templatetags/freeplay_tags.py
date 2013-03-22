@@ -1,24 +1,24 @@
 from django import template
 
-from tidbits.models import Area, Item
+from freeplay.models import Region, Item
 
 register = template.Library()
 
 
 @register.assignment_tag
-def content_bits(area_slug):
+def content_bits(region_slug):
     try:
-        area = Area.objects.get(slug=area_slug)
-        return area.items.all()
+        region = Region.objects.get(slug=region_slug)
+        return region.items.all()
     except:
         return None
 
 
 @register.assignment_tag
-def get_bit(area_slug, item_slug):
+def get_bit(region_slug, item_slug):
     try:
         return Item.objects.get(
-            area__slug=area_slug,
+            region__slug=region_slug,
             slug=item_slug
         )
     except:
