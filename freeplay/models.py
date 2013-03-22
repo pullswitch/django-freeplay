@@ -129,7 +129,7 @@ class BitClass:
 
 
 class Item(models.Model):
-    area = models.ForeignKey(Region, related_name="items")
+    region = models.ForeignKey(Region, related_name="items")
     order = models.IntegerField(default=0)
     label = models.CharField(max_length=100)
     slug = models.SlugField()
@@ -140,7 +140,7 @@ class Item(models.Model):
         return u"{0}".format(self.label)
 
     def save(self, *args, **kwargs):
-        code = self.area.template.code
+        code = self.region.template.code
         ctx = {
             "label": self.label,
             "order": self.order,
@@ -156,7 +156,7 @@ class Item(models.Model):
         super(Item, self).save(*args, **kwargs)
 
     def save_content(self, data):
-        for bit in self.area.template.bits.all():
+        for bit in self.region.template.bits.all():
             cb, created = ContentBit.objects.get_or_create(
                 bit=bit,
                 item=self
@@ -171,5 +171,5 @@ class Item(models.Model):
             cb.save()
 
     class Meta:
-        ordering = ("area", "order", )
-        unique_together = ("area", "slug")
+        ordering = ("region", "order", )
+        unique_together = ("region", "slug")
