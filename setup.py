@@ -10,7 +10,8 @@ setup(
     long_description = open("README.rst").read(),
     license = "MIT",
     url = "http://github.com/pullswitch/django-freeplay",
-    packages = find_packages(),
+    packages = ["freeplay"],
+    package_data = {"freeplay": ["templates/*"]},
     install_requires = [
         "django-model-utils==1.1.0",
         "django-relatedadminwidget==0.0.2",
