@@ -1,5 +1,5 @@
 django-freeplay
-==============
+===============
 
 Freeplay is a new approach for easily adding CMS functionality to
 your Django app. Define regions for managing (and allowing clients to manage) 
