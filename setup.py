@@ -6,7 +6,7 @@ setup(
     version = "0.1.2",
     author = "Dave Lowe",
     author_email = "dave@hellopullswitch.com",
-    description = "Easily make regions of content on your site editable without custom models",
+    description = "Easily add CMS functionality to your Django site",
     long_description = open("README.rst").read(),
     license = "MIT",
     url = "http://github.com/pullswitch/django-freeplay",
