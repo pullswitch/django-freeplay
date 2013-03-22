@@ -11,7 +11,7 @@ setup(
     license = "MIT",
     url = "http://github.com/pullswitch/django-freeplay",
     packages = ["freeplay"],
-    package_data = {"freeplay": ["templates/admin/freeplay/*"]},
+    package_data = {"freeplay": ["templates/admin/freeplay/*", "templatetags/*.py"]},
     install_requires = [
         "django-model-utils==1.1.0",
         "django-relatedadminwidget==0.0.2",
