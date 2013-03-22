@@ -2,8 +2,8 @@ from django.contrib import admin
 
 from relatedwidget import RelatedWidgetWrapperBase
 
-from tidbits.models import Region, Bit, ContentBit
-from tidbits.models import Item, Template
+from freeplay.models import Region, Bit, ContentBit
+from freeplay.models import Item, Template
 
 
 class RegionOptions(RelatedWidgetWrapperBase, admin.ModelAdmin):

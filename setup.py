@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "django-freeplay",
-    version = "0.1.0",
+    version = "0.1.1",
     author = "Dave Lowe",
     author_email = "dave@hellopullswitch.com",
     description = "Easily make regions of content on your site editable without custom models",
