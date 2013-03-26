@@ -15,22 +15,22 @@
 {% block content %}
             
 <div class="row" id="container">
-    {% for area in areas %}
+    {% for region in regions %}
     <div class="span6">
                 
         <div class="slate">
                     
             <div class="page-header">
-                <h2>{% if user.is_staff %}<a href="{% url "admin:freeplay_area_change" area.pk %}"><i class="icon-cog pull-right"></i></a> {% endif %} {{ area }}</h2>
+                <h2>{% if user.is_staff %}<a href="{% url "admin:freeplay_region_change" region.pk %}"><i class="icon-cog pull-right"></i></a> {% endif %} {{ region }}</h2>
             </div>
-            {% if area.items.count < area.min_items %}
-            <p class="alert alert-warning">{{ area.min_items }} {% trans "items needed — please add more" %}</p>
+            {% if region.items.count < region.min_items %}
+            <p class="alert alert-warning">{{ region.min_items }} {% trans "items needed — please add more" %}</p>
             {% endif %}
             <table class="table">
             <tbody>
-                {% for obj in area.items.all %}
+                {% for obj in region.items.all %}
                 <tr>
-                    <td><a href="{% url "freeplay_item_change" area.pk obj.pk %}">{{ obj.label }}</a></td>
+                    <td><a href="{% url "freeplay_item_change" region.pk obj.pk %}">{{ obj.label }}</a></td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -39,7 +39,7 @@
                 {% endfor %}
             </tbody>
             </table>
-            {% if not area.max_items or area.items.count < area.max_items %}<a href="{% url "freeplay_item_add" area.pk %}"><i class="icon-plus-sign"></i> {% trans "Add new item" %}</a>{% endif %}
+            {% if not region.max_items or region.items.count < region.max_items %}<a href="{% url "freeplay_item_add" region.pk %}"><i class="icon-plus-sign"></i> {% trans "Add new item" %}</a>{% endif %}
         </div>
                 
     </div>

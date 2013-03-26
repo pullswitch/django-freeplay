@@ -16,7 +16,7 @@ class ItemForm(forms.ModelForm):
         model = Item
 
     def __init__(self, *args, **kwargs):
-        self.area = kwargs.pop("area")
+        self.region = kwargs.pop("region")
         super(ItemForm, self).__init__(*args, **kwargs)
         if not len(args):
             args = [{}, {}]
@@ -24,7 +24,7 @@ class ItemForm(forms.ModelForm):
             bits = kwargs.get("instance").content_bits.all()
         else:
             bits = [
-                EmptyContentBit(bit) for bit in self.area.template.bits.all()
+                EmptyContentBit(bit) for bit in self.region.template.bits.all()
             ]
         for cb in bits:
             if cb.bit.kind == "image":
@@ -44,8 +44,8 @@ class ItemForm(forms.ModelForm):
                 field.required = False
             self.fields.insert(cb.bit.order + len(self.fields) - 1, "bit{0}".format(cb.bit.pk), field)
 
-        self.fields["area"].widget = forms.widgets.HiddenInput()
-        self.fields["area"].initial = self.area
+        self.fields["region"].widget = forms.widgets.HiddenInput()
+        self.fields["region"].initial = self.region
 
     def save(self):
         item = super(ItemForm, self).save()
