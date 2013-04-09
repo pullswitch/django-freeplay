@@ -47,7 +47,7 @@ def create_item(request, region_pk):
     )
 
 
-@permission_required("freeplay.author_contentbit", raise_exception=True)
+@permission_required("freeplay.add_contentbit", raise_exception=True)
 def change_item(request, region_pk, item_pk):
     region = get_object_or_404(Region, pk=region_pk)
     item = get_object_or_404(region.items, pk=item_pk)
