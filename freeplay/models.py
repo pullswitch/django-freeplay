@@ -156,6 +156,7 @@ class Item(models.Model):
         super(Item, self).save(*args, **kwargs)
 
     def save_content(self, data):
+        updated = []
         for bit in self.region.template.bits.all():
             cb, created = ContentBit.objects.get_or_create(
                 bit=bit,
@@ -169,6 +170,8 @@ class Item(models.Model):
                 import markdown
                 cb.data = markdown.markdown(cb.data)
             cb.save()
+            updated.append(cb.pk)
+        self.content_bits.exclude(pk__in=updated).delete()
 
     class Meta:
         ordering = ("region", "order", )
