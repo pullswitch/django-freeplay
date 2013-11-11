@@ -1,0 +1,10 @@
+{
+  "name": "django-freeplay",
+  "version": "0.2.0",
+  "dependencies": {
+    "eldarion-ajax": "0.12.0",
+    "jquery-slugify": "1.0.2",
+    "isotope": "2.0.0-beta.2",
+    "chosen": "https://github.com/harvesthq/chosen/releases/download/1.0.0/chosen_v1.0.0.zip"
+  }
+}

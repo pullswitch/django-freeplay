@@ -16,8 +16,9 @@ Installation
 ============
 
 1. ``pip install django-freeplay``
-2. Add ``'freeplay'`` to your ``INSTALLED_APPS`` in your project's settings.py
-3. (Optional) Add ``(r"^admin/freeplay/", include("freeplay.urls_admin")),`` to 
+2. Add ``'freeplay'`` and ``'relatedwidget'`` to your ``INSTALLED_APPS``
+    in your project's settings.py
+3. (Optional) Add ``(r"^admin/content/", include("freeplay.urls_admin")),`` to 
    your main urls.py, before you include the admin urls
 4. Sync your db or use your migration tool of choice 
    (recommended: `nashvegas`_)
@@ -33,8 +34,27 @@ Installing freeplay will also bring
 and `django-relatedadminwidget`_ with it.
 
 The admin templates assume the existence of a few CSS and JS libraries: 
-`Chosen`_, `Isotope`_, and `jQuery.Slugify`_. Simply override the 
-templates with ones in your project to define your own paths or libs.
+`Chosen`_, `Isotope`_, and `jQuery.Slugify`_. Place
+the files here (in relation to your staticfiles directory) to "just make it
+work":
+
+chosen/chosen.jquery.min.js
+lib/isotope/jquery.isotope.min.js (you can install Isotope with `bower`_)
+lib/jquery-slugify/dist/slugify.min.js
+
+These paths can also be overridden with a `FREEPLAY` setting in your settings
+file:
+
+.. code-block:: python
+
+    FREEPLAY = {
+        "CHOSEN_URL": "some/path/chosen.js",
+        "SLUGIFY_URL": "some/path/slugify.js",
+        "ISOTOPE_URL": "some/path/isotope.js"
+    }
+
+And for more advanced customization, you can always override the freeplay
+templates with your own.
 
 .. _`django-model-utils`: https://github.com/carljm/django-model-utils
 .. _`django-imagekit`: https://github.com/jdriscoll/django-imagekit
@@ -42,6 +62,7 @@ templates with ones in your project to define your own paths or libs.
 .. _`Chosen`: https://github.com/harvesthq/chosen/
 .. _`Isotope`: https://github.com/desandro/isotope
 .. _`jQuery.Slugify`: https://github.com/pmcelhaney/jQuery-Slugify-Plugin
+.. _`bower`: http://bower.io/
 
 Usage
 =====
@@ -116,6 +137,13 @@ Here's how you fetch and display freeplay content in your templates:
         <p>{{ co_summary.data }}</p>
     </footer>
 
+Images
+-------
+
+Image bits can be rendered in your template using `{{ item.markup }}`. This
+generates the `<img>` tag including an `alt` attribute. If you just want to
+get the image path, you'll need to use `{{ item.contentbit.image_url }}`.
+
 
 Also
 ====
@@ -124,6 +152,20 @@ Freeplay regions let you set "Min Items" and "Max Items", optionally. On the
 freeplay admin dashboard, it will then alert you if a region needs more content 
 to meet the minimum requirement and won't show the "Add" link if the region has 
 met the maximum limit.
+
+Image constraints should be entered as width followed by height, separated with "x": 150x80
+
+To display an image in your template, something like this will work:
+
+.. code-block:: html
+
+    <img src="{{ headshot.image_path }}" alt="Headshot">
+
+Or...
+
+.. code-block:: html
+
+    {{ headshot.markup }}
 
 Hope you find this useful!
 

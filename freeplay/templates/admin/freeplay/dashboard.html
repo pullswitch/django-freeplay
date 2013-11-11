@@ -8,7 +8,7 @@
             <a href="{% url "admin:index" %}">{% trans "Dashboard" %}</a> <span class="divider">/</span>
         </li>
         <li class="active">
-          {% trans "Content Regions" %}
+          {% trans "Manage Content" %}
         </li>        
 {% endblock %}
 
@@ -50,7 +50,7 @@
 {% endblock content %}
 
 {% block js %}
-    <script src="{{ STATIC_URL }}lib/isotope/jquery.isotope.min.js"></script>
+    <script src="{{ ISOTOPE_URL }}"></script>
     <script>
         $('#container').isotope({
           itemSelector : '.span6',

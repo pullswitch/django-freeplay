@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "django-freeplay",
-    version = "0.1.6",
+    version = "0.2.0",
     author = "Dave Lowe",
     author_email = "dave@hellopullswitch.com",
     description = "Easily add CMS functionality to your Django site",
@@ -15,7 +15,7 @@ setup(
     install_requires = [
         "django-model-utils==1.1.0",
         "django-relatedadminwidget==0.0.2",
-        "django-imagekit==2.0.1"
+        "django-imagekit>=3.0.4"
     ],
     classifiers = [
         "Development Status :: 4 - Beta",

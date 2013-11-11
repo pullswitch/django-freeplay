@@ -7,6 +7,8 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from model_utils import Choices
 
+from freeplay.utils import encode_utf8_to_iso88591
+
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
@@ -23,7 +25,8 @@ class Region(models.Model):
 class Template(models.Model):
     name = models.CharField(max_length=100)
     code = models.TextField(help_text=_(
-        "Be sure to use the 'safe' filter when the input might include HTML tags"
+        "Be sure to use the 'safe' filter when the input might include \
+         HTML tags"
     ))
 
     def __unicode__(self):
@@ -56,7 +59,8 @@ class Bit(models.Model):
         max_length=10,
         choices=TEXT_WIDGET_CHOICES,
         default='charfield',
-        help_text=_("Which type of input widget to use in admin form for Plain Text fields."),
+        help_text=_("Which type of input widget to use in admin form \
+                    for Plain Text fields."),
     )
     image_constraints = models.CharField(max_length=20, blank=True, null=True)
     image_quality = models.IntegerField(blank=True, null=True)
@@ -89,15 +93,16 @@ class ContentBit(models.Model):
     bit = models.ForeignKey(Bit)
     item = models.ForeignKey("Item", related_name="content_bits")
     data = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to="images/content/", blank=True, null=True)
+    image = models.ImageField(upload_to="images/content/",
+                              blank=True, null=True)
 
     @property
     def image_formatted(self):
         f = ImageSpecField(
-            [ResizeToFill(self.bit.image_x, self.bit.image_y)],
-            image_field="image",
+            source="image",
             format="PNG",
             options={"quality": self.bit.image_quality},
+            processors=[ResizeToFill(self.bit.image_x, self.bit.image_y)],
         )
         f.contribute_to_class(ContentBit, "image_formatted")
         return self.image_formatted
@@ -166,6 +171,8 @@ class Item(models.Model):
                 cb.image = data.get("bit{0}".format(bit.pk))
             else:
                 cb.data = data.get("bit{0}".format(bit.pk))
+                # replace special characters
+                cb.data = encode_utf8_to_iso88591(cb.data)
             if cb.bit.kind == "markdown":
                 import markdown
                 cb.data = markdown.markdown(cb.data)

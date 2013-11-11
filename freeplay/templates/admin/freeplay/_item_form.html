@@ -1,0 +1,21 @@
+{% load i18n admin_modify %}
+{% load bootstrap_tags %}
+
+  <form enctype="multipart/form-data" action="{{ form_url }}" method="post" id="add_form" class="form form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
+    <div>
+    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+    {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+    {% if form.errors %}
+        <p class="errornote">
+        {% blocktrans count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+        </p>
+        {{ form.non_field_errors }}
+    {% endif %}
+        {{ form|as_bootstrap }}
+        <div class="form-actions">
+          <a href="#back" class="btn">{% trans 'Go back' %}</a>
+          <button type="submit" class="btn btn-primary">{% if add %}{% trans 'Save' %}{% else %}{% trans 'Save changes' %}{% endif %}</button>
+          {% if not add %}<a href="{% url 'freeplay_item_delete' region.pk instance.pk %}" class="btn btn-danger pull-right">{% trans 'Delete' %}</a>{% endif %}
+        </div>
+    </div>
+  </form>

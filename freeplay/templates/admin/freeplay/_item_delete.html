@@ -1,0 +1,15 @@
+{% load i18n %}
+ 
+  <form action="{% url 'freeplay_item_delete' region.pk instance.pk %}" method="post" id="delete_form" class="form form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
+    <div>
+    {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+    <p class="warning">
+        {% blocktrans %}Are you sure you want to delete this item?{% endblocktrans %}
+        </p>
+        <div class="form-actions">
+          <a href="{% url 'freeplay_item_change' region.pk instance.pk %}" class="btn cancel">{% trans 'Cancel' %}</a>
+          <button type="submit" class="btn btn-danger">{% trans 'Delete Item' %}</button>
+        </div>
+    </div>
+  </form>
+  

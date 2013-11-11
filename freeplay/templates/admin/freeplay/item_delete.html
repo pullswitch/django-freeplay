@@ -2,6 +2,7 @@
 {% load i18n admin_static admin_modify %}
 {% load url from future %}
 {% load admin_urls %}
+{% load bootstrap_tags %}
 
 {% block extrahead %}{{ block.super }}
 
@@ -24,7 +25,7 @@
 <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> <span class="divider">/</span></li>
 <li><a href="{% url 'freeplay_dashboard' %}">{% trans 'Manage Content' %}</a> <span class="divider">/</span></li>
 {% comment %}<li>{% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} <span class="divider">/</span></li>{% endcomment %}
-<li>{% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}{{ instance|truncatewords:"18" }}{% endif %}</li>
+<li>{% trans 'Delete' %} {{ original|truncatewords:"18" }}</li>
 </ul>
 {% endblock %}
 {% endif %}
@@ -32,19 +33,6 @@
 {% block content %}
 <div id="content-main" class="span10">
   {% block object-tools %}{% endblock %}
-  {% include "admin/freeplay/_item_form.html" %}
+  {% include "admin/freeplay/_item_delete.html" %}
 </div>
-{% endblock %}
-
-{% block js %}
-  <script src="{{ CHOSEN_URL }}"></script>
-  <script src="{{ SLUGIFY_URL }}"></script>
-  <script>
-  $(function() {
-    $("select").addClass("chzn-select");
-    $(".chzn-select").chosen();
-    $("#id_slug").slugify("#id_label");
-  });
-</script>
-
 {% endblock %}
