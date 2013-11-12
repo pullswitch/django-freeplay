@@ -32,6 +32,14 @@ class Template(models.Model):
     def __unicode__(self):
         return u"{0}".format(self.name)
 
+    def save(self, *args, **kwargs):
+        super(Template, self).save(*args, **kwargs)
+
+        # Re-save any items using this template
+        for region in self.region_set.all():
+            for item in region.items.all():
+                item.save()
+
 
 class Bit(models.Model):
     KINDS = Choices(

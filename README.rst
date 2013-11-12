@@ -127,7 +127,7 @@ Here's how you fetch and display freeplay content in your templates:
     <li>{{ item.data|safe }}</li>
     {% endfor %}
 
-``get_bit`` : assignment tag, requires "region_slug" and "item_slug" as args
+``get_bit`` : assignment tag, requires "region_slug" and, optionally, "item_slug" 
 
 .. code-block:: html
 
@@ -135,6 +135,14 @@ Here's how you fetch and display freeplay content in your templates:
     <footer>
         <h1>About the Company</h1>
         <p>{{ co_summary.data }}</p>
+    </footer>
+
+.. code-block:: html
+
+    {% get_bit "footer-address" as address %}
+    <footer>
+        <h1>Come Visit!</h1>
+        <p>{{ address.data }}</p>
     </footer>
 
 Images
