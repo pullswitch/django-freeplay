@@ -1,6 +1,7 @@
 {% extends "admin/base.html" %}
 {% load url from future %}
 {% load i18n %}
+{% load static %}
 
 
 {% block breadcrumbs %}
@@ -50,11 +51,10 @@
 {% endblock content %}
 
 {% block js %}
-    <script src="{{ ISOTOPE_URL }}"></script>
+    <script src="{% static MASONRY_PATH %}"></script>
     <script>
-        $('#container').isotope({
-          itemSelector : '.span6',
-          layoutMode : 'masonry'
+        $('#container').masonry({
+          itemSelector : '.span6'
         });
     </script>
 {% endblock js %}

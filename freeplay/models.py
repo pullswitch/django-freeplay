@@ -1,5 +1,6 @@
 from django.db import models
 from django.template import Context, Template as DjTemplate
+from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
@@ -162,7 +163,7 @@ class Item(models.Model):
         for cb in self.content_bits.all():
             bc = BitClass(cb)
             ctx.update({
-                cb.bit.context_name: bc
+                cb.bit.context_name: smart_text(bc)
             })
         t = DjTemplate(code)
         self.data = t.render(Context(ctx))

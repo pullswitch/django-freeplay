@@ -1,7 +1,7 @@
 django-freeplay
 ===============
 
-Freeplay is a new approach for easily adding CMS functionality to
+Freeplay is a unique approach to easily add CMS functionality to
 your Django app. Define regions for managing (and allowing clients to manage) 
 bits of content on your site that don't need the full build-out of 
 custom apps. For example, that list of links in the footer, or the photo 
@@ -18,7 +18,7 @@ Installation
 1. ``pip install django-freeplay``
 2. Add ``'freeplay'`` and ``'relatedwidget'`` to your ``INSTALLED_APPS``
     in your project's settings.py
-3. (Optional) Add ``(r"^admin/content/", include("freeplay.urls_admin")),`` to 
+3. Add ``(r"^admin/content/", include("freeplay.urls_admin")),`` to 
    your main urls.py, before you include the admin urls
 4. Sync your db or use your migration tool of choice 
    (recommended: `nashvegas`_)
@@ -34,13 +34,16 @@ Installing freeplay will also bring
 and `django-relatedadminwidget`_ with it.
 
 The admin templates assume the existence of a few CSS and JS libraries: 
-`Chosen`_, `Isotope`_, and `jQuery.Slugify`_. Place
+`Chosen`_, `Masonry`_, and `jQuery.Slugify`_. Place
 the files here (in relation to your staticfiles directory) to "just make it
 work":
 
-chosen/chosen.jquery.min.js
-lib/isotope/jquery.isotope.min.js (you can install Isotope with `bower`_)
-lib/jquery-slugify/dist/slugify.min.js
+- chosen_v1.0.0/chosen.jquery.min.js
+- masonry/jquery.masonry.min.js
+- jquery-slugify/dist/slugify.min.js
+
+Note: All three of these can be installed quickly using `bower`_. Add
+`django-bower`_ to your project if you haven't yet!
 
 These paths can also be overridden with a `FREEPLAY` setting in your settings
 file:
@@ -48,9 +51,9 @@ file:
 .. code-block:: python
 
     FREEPLAY = {
-        "CHOSEN_URL": "some/path/chosen.js",
-        "SLUGIFY_URL": "some/path/slugify.js",
-        "ISOTOPE_URL": "some/path/isotope.js"
+        "CHOSEN_PATH": "some/path/chosen.js",
+        "SLUGIFY_PATH": "some/path/slugify.js",
+        "MASONRY_PATH": "some/path/masonry.js"
     }
 
 And for more advanced customization, you can always override the freeplay
@@ -60,9 +63,10 @@ templates with your own.
 .. _`django-imagekit`: https://github.com/jdriscoll/django-imagekit
 .. _`django-relatedadminwidget`: https://github.com/benjaoming/django-relatedadminwidget
 .. _`Chosen`: https://github.com/harvesthq/chosen/
-.. _`Isotope`: https://github.com/desandro/isotope
+.. _`Masonry`: http://masonry.desandro.com
 .. _`jQuery.Slugify`: https://github.com/pmcelhaney/jQuery-Slugify-Plugin
 .. _`bower`: http://bower.io/
+.. _`django-bower`: https://github.com/nvbn/django-bower
 
 Usage
 =====

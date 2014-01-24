@@ -21,10 +21,17 @@ class BitInline(admin.StackedInline):
 
 
 class TemplateOptions(admin.ModelAdmin):
+    list_display = ("name", "active_item_count", "bit_names")
 
     inlines = [
         BitInline,
     ]
+
+    def active_item_count(self, obj):
+        return sum([r.items.count() for r in obj.region_set.all()])
+
+    def bit_names(self, obj):
+        return ", ".join([b.name for b in obj.bits.all()])
 
 
 class ItemOptions(RelatedWidgetWrapperBase, admin.ModelAdmin):
