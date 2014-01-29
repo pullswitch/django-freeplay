@@ -8,8 +8,6 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from model_utils import Choices
 
-from freeplay.utils import encode_utf8_to_iso88591
-
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
@@ -163,7 +161,7 @@ class Item(models.Model):
         for cb in self.content_bits.all():
             bc = BitClass(cb)
             ctx.update({
-                cb.bit.context_name: smart_text(bc)
+                cb.bit.context_name: smart_text(bc.contentbit.markup)
             })
         t = DjTemplate(code)
         self.data = t.render(Context(ctx))
@@ -180,8 +178,6 @@ class Item(models.Model):
                 cb.image = data.get("bit{0}".format(bit.pk))
             else:
                 cb.data = data.get("bit{0}".format(bit.pk))
-                # replace special characters
-                cb.data = encode_utf8_to_iso88591(cb.data)
             if cb.bit.kind == "markdown":
                 import markdown
                 cb.data = markdown.markdown(cb.data)
