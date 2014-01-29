@@ -8,6 +8,8 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from model_utils import Choices
 
+from freeplay.utils import encode_utf8_to_iso88591
+
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
@@ -160,9 +162,16 @@ class Item(models.Model):
         }
         for cb in self.content_bits.all():
             bc = BitClass(cb)
-            ctx.update({
-                cb.bit.context_name: smart_text(bc.contentbit.markup)
-            })
+            if bc.contentbit.image:
+                ctx.update({
+                    cb.bit.context_name: bc,
+                    "{0}_url".format(
+                        cb.bit.context_name): bc.contentbit.image_url
+                })
+            else:
+                ctx.update({
+                    cb.bit.context_name: smart_text(bc.contentbit.markup)
+                })
         t = DjTemplate(code)
         self.data = t.render(Context(ctx))
         super(Item, self).save(*args, **kwargs)

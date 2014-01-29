@@ -152,9 +152,10 @@ Here's how you fetch and display freeplay content in your templates:
 Images
 -------
 
-Image bits can be rendered in your template using `{{ item.markup }}`. This
-generates the `<img>` tag including an `alt` attribute. If you just want to
-get the image path, you'll need to use `{{ item.contentbit.image_url }}`.
+Image bits can be rendered in your template using `{{ item }}` (if the context
+name for this bit is "item". Thisenerates the `<img>` tag including an `alt`
+attribute. If you just want to get the image path, you can either use
+`{{ item.contentbit.image_url }}` or `{{ item_url }}`.
 
 
 Also
