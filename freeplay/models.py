@@ -8,8 +8,6 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from model_utils import Choices
 
-from freeplay.utils import encode_utf8_to_iso88591
-
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
